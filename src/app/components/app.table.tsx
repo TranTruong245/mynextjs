@@ -1,35 +1,35 @@
 'use client'
 import Table from 'react-bootstrap/Table';
-
-function AppTable() {
+interface IProps{
+  blogs: IBlog[]
+}
+function AppTable(props: IProps) {
+  const {blogs} = props;
+  console.log(">>>check props blogs: ", blogs)
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+          <th>No</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        {blogs?.map( blog =>{  // dấu hỏi chấm khi dữ liệu undifined k lỗi
+          return(
+            <tr key={blog.id}>
+            <td>{blog.id}</td>
+            <td>{blog.title}</td>
+            <td>{blog.author}</td>
+            <td> 
+              Edit, View, Delete
+            </td>
+          </tr>
+          )
+        })}
+        
       </tbody>
     </Table>
   );

@@ -6,16 +6,28 @@ import { useEffect } from 'react'
 import { copyFileSync } from 'fs'
 import { Solitreo } from 'next/font/google'
 import { clearScreenDown } from 'readline'
+import useSWR from 'swr'
 
 export default function Home() {
-  useEffect(() => {
-    const fetchDate = async() =>{
-      const res = await fetch("http://localhost:8000/blogs");
-      const data = await res.json(); 
-      console.log(">> Data", data);
-    }
-  fetchDate();
-  }, [])
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const {data, error, isLoading} = useSWR("http://localhost:8000/blogs", fetcher,
+  {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
+  });
+  //****************cách fetching bằng useEffect*********
+  // useEffect(() => {
+  //   const fetchDate = async() =>{
+  //     const res = await fetch("http://localhost:8000/blogs");
+  //     const data = await res.json(); 
+  //     console.log(">> Data", data);
+  //   }
+  // fetchDate();
+  // }, [])
+  if (!data){
+    return <div>Loading...</div>
+  }
   return (
     <>
     <ul >
@@ -35,7 +47,9 @@ export default function Home() {
         </Link>
       </li>
     </ul>
-    <AppTable/>
+    <AppTable 
+      blogs={data}
+    />
     </>
   )
 }

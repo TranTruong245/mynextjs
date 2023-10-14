@@ -11,8 +11,9 @@ export default function Facebook(){
         <div>
             Facebook
             <div>
-                <Button variant="outline-primary">Trần Trường</Button>
-                <button onClick={() => handleBtn()}>back home</button>
+                <Button variant="outline-primary" >Trần Trường</Button>
+                <span style={{ marginLeft: '10px' }}></span>
+                <Button variant="outline-warning" onClick={() => handleBtn()}>Back Home</Button>
             </div>
         </div>
     )
