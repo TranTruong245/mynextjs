@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import { toast} from 'react-toastify';
+import { mutate } from 'swr';
 interface IProps{
     showModelCreate: boolean;
     setShowModelCreate: (value: boolean) => void;
@@ -13,8 +15,35 @@ function CreateModel(props: IProps) {
     const [author,setAuthor] = useState("");
     const [content,setContent] = useState("");
     const handleSave = () =>{
-        console.log(">>>check data",title,author,content);
+      if (!title){
+        toast.error("Not empty title");
+        return;
+      }
+      if (!author){
+        toast.error("Not empty author");
+        return;
+      }
+      if (!content){
+        toast.error("Not empty content");
+        return;
+      }
+      fetch('http://localhost:8000/blogs', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+        },
+      body: JSON.stringify({title, author, content})
+      }).then(res => res.json())
+        .then(res => {
+          if(res){
+            toast.success("Lưu thành công <3");
+            handleClose();
+            mutate("http://localhost:8000/blogs");// load lại trang sau khi lưu
+          }
+        });
     }
+    // Xử lí nút close
     const handleClose = () =>{
         setTitle("");
         setAuthor("");
