@@ -7,8 +7,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function AppHeader() {
   return (
-    <Navbar>
-      <Container>
+    <Navbar className="bg-body-tertiary">
+      <Container >
         <Navbar.Brand>
             <Link href="/" className='navbar-brand'>Trần Trường</Link>
         </Navbar.Brand>
