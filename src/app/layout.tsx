@@ -1,13 +1,14 @@
 
-//import './globals.css'
-import Container from 'react-bootstrap/Container';
+import Container from 'react-bootstrap/Container'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import AppHeader from './components/app.header';
-import AppFooter from './components/app.footer';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer} from 'react-toastify';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import AppHeader from './components/app.header'
+import AppFooter from './components/app.footer'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer} from 'react-toastify'
+// import 'font-awesome/css/font-awesome.min.css'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -26,8 +27,10 @@ export default function RootLayout({
       <body className={inter.className}>
        
         <AppHeader/>
-      
-        {children}
+        <div className='container'> 
+          {children}
+        </div>
+        
       
         <AppFooter/>
         <ToastContainer 
